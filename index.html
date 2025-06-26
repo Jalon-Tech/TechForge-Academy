@@ -355,7 +355,7 @@
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          document.getElementById('user-status').innerText = `Welcome back, ${userCredential.user.email}`;
+          document.getElementById('user-status').innerText = `Welcome back, $username`;
         })
         .catch((error) => {
           document.getElementById('user-status').innerText = error.message;
