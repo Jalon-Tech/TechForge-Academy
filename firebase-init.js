@@ -7,13 +7,13 @@ const firebaseConfig = {
   apiKey: "AIzaSyA66sbVnP3CNVpdTUz13MuLwemiObpR-QM",
   authDomain: "techforge-academy.firebaseapp.com",
   projectId: "techforge-academy",
-  storageBucket: "techforge-academy.firebasestorage.app",
+  storageBucket: "techforge-academy.appspot.com", 
   messagingSenderId: "724281790220",
   appId: "1:724281790220:web:1698209a0840d83e5ac329",
   measurementId: "G-TCQY5VY8M8"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
