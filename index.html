@@ -122,7 +122,7 @@
     }
 
     .red-bg { background-color: #e60023; color: #fff; }
-    .blue-bg {  background-color: #003366; color: #fff; }
+    .blue-bg { background-color: #003366; color: #fff; }
     .white-bg { background-color: #fff; color: #000; }
 
     .white-bg .arrow { color: #e60023; }
@@ -146,13 +146,6 @@
       }
     }
   </style>
- <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-
-<!-- Firebase Auth -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-
-<!-- Firebase Firestore -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <header>
@@ -249,26 +242,28 @@
   <footer>
     <p>&copy; 2025 TechForge Academy. All rights reserved.</p>
   </footer>
-  <script>
-  // Your Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyA66sbVnP3CNVpdTUz13MuLwemiObpR-QM",
-    authDomain: "techforge-academy.firebaseapp.com",
-    projectId: "techforge-academy",
-    storageBucket: "techforge-academy.firebasestorage.app",
-    messagingSenderId: "724281790220",
-    appId: "1:724281790220:web:1698209a0840d83e5ac329",
-    measurementId: "G-TCQY5VY8M8"
-  };
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+  <!-- Firebase Modular SDK Setup -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  // For testing: log a message to confirm
-  console.log("Firebase initialized.");
-</script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA66sbVnP3CNVpdTUz13MuLwemiObpR-QM",
+      authDomain: "techforge-academy.firebaseapp.com",
+      projectId: "techforge-academy",
+      storageBucket: "techforge-academy.appspot.com",
+      messagingSenderId: "724281790220",
+      appId: "1:724281790220:web:866629d3bd073fb5ac329",
+      measurementId: "G-TCQY5VY8M8"
+    };
 
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    console.log("✅ Firebase Modular SDK connected:", app);
+  </script>
 </body>
 </html>
