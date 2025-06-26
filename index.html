@@ -66,7 +66,7 @@
       cursor: pointer;
       border-radius: 5px;
     }
-
+    
     .auth-card {
       background: #003366;
       padding: 30px;
@@ -204,19 +204,20 @@
   <header>
     <h1>TECHFORGE ACADEMY</h1>
     <nav>
-      <a href="#">HOME</a>
-      <a href="#">CS TRACK</a>
-      <a href="#">CYBER TRACK</a>
-      <a href="#">GAME DEV</a>
-      <a href="#">FORGE QUESTS</a>
-      <a href="#">ABOUT</a>
+        <button onclick="logoutUser()">LOG OUT</button>
+        <a href="#">HOME</a>
+        <a href="cs-track.html">CS TRACK</a>
+        <a href="#">CYBER TRACK</a>
+        <a href="#">GAME DEV</a>
+        <a href="#">FORGE QUESTS</a>
+        <a href="#">ABOUT</a>
     </nav>
   </header>
 
   <section class="hero">
     <h2>FORGE YOUR FUTURE IN <span style="color:#e60023;">CODE</span>, <span style="color:#003366;">SECURITY</span>, AND <span style="color:#fff;">GAMES</span></h2>
     <p>Master the skills. Build real projects. Level up your knowledge.</p>
-    <button>START LEARNING NOW</button>
+    <button onclick="scrollToSection('browse')">START LEARNING NOW</button>
 
     <div class="auth-card">
       <h3>Login or Sign Up</h3>
@@ -240,21 +241,22 @@
         <div class="icon">
           <img src="https://cdn-icons-png.flaticon.com/512/711/711284.png" alt="Computer Science Icon" />
         </div>
-        <p>Algorithms<br>OOP & Web Dev<br>Databases</p>
+        <p id="cs-status">Loading progress...</p>
+        <button onclick="completeCSLesson()">Complete CS Lesson: Functions</button>
       </div>
       <div class="card red-bg">
         <h3>CYBERSECURITY</h3>
         <div class="icon">
           <img src="https://cdn-icons-png.flaticon.com/512/5964/5964320.png" alt="Cybersecurity Icon" />
         </div>
-        <p>CTFs<br>Hacking Labs<br>Encryption & Ethics</p>
+       <p id="cyber-status">Loading progress...</p>
       </div>
       <div class="card red-bg">
         <h3>GAME DEVELOPMENT</h3>
         <div class="icon">
           <img src="https://www.pngall.com/wp-content/uploads/5/Vector-Game-Controller-Transparent.png" alt="Game Development Icon" />
         </div>
-        <p>2D/3D Games<br>Mechanics<br>Animation</p>
+        <p id="gamedev-status">Loading progress...</p>
       </div>
     </div>
   </section>
@@ -308,75 +310,128 @@
     <p>&copy; 2025 TechForge Academy. All rights reserved.</p>
   </footer>
 
-  <!-- Firebase Modular SDK Setup -->
-  <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyA66sbVnP3CNVpdTUz13MuLwemiObpR-QM",
-      authDomain: "techforge-academy.firebaseapp.com",
-      projectId: "techforge-academy",
-      storageBucket: "techforge-academy.appspot.com",
-      messagingSenderId: "724281790220",
-      appId: "1:724281790220:web:866629d3bd073fb5ac329",
-      measurementId: "G-TCQY5VY8M8"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyA66sbVnP3CNVpdTUz13MuLwemiObpR-QM",
+    authDomain: "techforge-academy.firebaseapp.com",
+    projectId: "techforge-academy",
+    storageBucket: "techforge-academy.appspot.com",
+    messagingSenderId: "724281790220",
+    appId: "1:724281790220:web:866629d3bd073fb5ac329",
+    measurementId: "G-TCQY5VY8M8"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
 
-    window.createAccount = () => {
-      const email = document.getElementById('signup-email').value;
-      const password = document.getElementById('signup-password').value;
-      const username = document.getElementById('signup-username').value;
+  const updateProgressUI = (progress) => {
+    if (!progress) return;
 
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          return setDoc(doc(db, "users", user.uid), {
-            email,
-            username
-          });
-        })
-        .then(() => {
-          document.getElementById('user-status').innerText = "Account created!";
-        })
-        .catch((error) => {
-          document.getElementById('user-status').innerText = error.message;
+    const cs = progress.cs?.level || "Untracked";
+    const cyber = progress.cyber?.level || "Untracked";
+    const gamedev = progress.gamedev?.level || "Untracked";
+
+    document.getElementById("cs-status").innerText = `Level: ${cs}`;
+    document.getElementById("cyber-status").innerText = `Level: ${cyber}`;
+    document.getElementById("gamedev-status").innerText = `Level: ${gamedev}`;
+  };
+
+  window.createAccount = () => {
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const username = document.getElementById('signup-username').value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        return setDoc(doc(db, "users", user.uid), {
+          email,
+          username,
+          progress: {
+            cs: { level: "Beginner", lessons: [] },
+            cyber: { level: "Beginner", lessons: [] },
+            gamedev: { level: "Beginner", lessons: [] }
+          }
         });
-    };
+      })
+      .then(() => {
+        document.getElementById('user-status').innerText = "Account created!";
+      })
+      .catch((error) => {
+        document.getElementById('user-status').innerText = error.message;
+      });
+  };
 
-    window.loginUser = () => {
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
+  window.loginUser = () => {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      const user = userCredential.user;
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const username = docSnap.data().username;
-        document.getElementById('user-status').innerText = `Welcome back, ${username}`;
-      } else {
-        document.getElementById('user-status').innerText = `Welcome back, User`;
-      }
-    })
-    .catch((error) => {
-      document.getElementById('user-status').innerText = error.message;
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          document.getElementById('user-status').innerText = `Welcome back, ${data.username}`;
+          updateProgressUI(data.progress);
+        } else {
+          document.getElementById('user-status').innerText = "No user data found";
+        }
+      })
+      .catch((error) => {
+        document.getElementById('user-status').innerText = error.message;
+      });
+  };
+
+  window.completeCSLesson = async () => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const userRef = doc(db, "users", user.uid);
+
+  try {
+    await updateDoc(userRef, {
+      "progress.cs.lessons": arrayUnion("functions"),
+      "progress.cs.level": "Intermediate"
     });
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      updateProgressUI(docSnap.data().progress);
+      document.getElementById('user-status').innerText = "Lesson completed!";
+    }
+  } catch (error) {
+    console.error("Error updating lesson:", error);
+    document.getElementById('user-status').innerText = error.message;
+  }
 };
 
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("Logged in as:", user.email);
-      }
+    onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        document.querySelector(".auth-card").style.display = "none";
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+        const userData = docSnap.data();
+        updateProgressUI(userData.progress);
+        }
+    }
     });
-  </script>
+
+    import { signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    window.logoutUser = () => {
+    signOut(auth).then(() => location.reload());
+    };
+
+</script>
+
 </body>
 </html>
