@@ -311,7 +311,7 @@
   <!-- Firebase Modular SDK Setup -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     const firebaseConfig = {
@@ -350,17 +350,27 @@
     };
 
     window.loginUser = () => {
-      const email = document.getElementById('login-email').value;
-      const password = document.getElementById('login-password').value;
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
 
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          document.getElementById('user-status').innerText = `Welcome back, $username`;
-        })
-        .catch((error) => {
-          document.getElementById('user-status').innerText = error.message;
-        });
-    };
+  signInWithEmailAndPassword(auth, email, password)
+    .then(async (userCredential) => {
+      const user = userCredential.user;
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const username = docSnap.data().username;
+        document.getElementById('user-status').innerText = `Welcome back, ${username}`;
+      } else {
+        document.getElementById('user-status').innerText = `Welcome back, User`;
+      }
+    })
+    .catch((error) => {
+      document.getElementById('user-status').innerText = error.message;
+    });
+};
+
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
