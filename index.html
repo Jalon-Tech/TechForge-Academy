@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TechForge Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
@@ -12,24 +12,20 @@
       background-color: #000;
       color: #fff;
     }
-
     header {
       padding: 30px 20px 10px;
       text-align: center;
     }
-
     header h1 {
       font-size: 3.2rem;
       font-family: 'Orbitron', sans-serif;
       margin: 0;
       letter-spacing: 1px;
     }
-
     nav {
       text-align: center;
       margin: 15px 0;
     }
-
     nav a {
       color: white;
       margin: 0 18px;
@@ -37,24 +33,20 @@
       font-weight: bold;
       font-size: 1rem;
     }
-
     .hero {
       text-align: center;
       padding: 30px 20px;
     }
-
     .hero h2 {
       font-size: 2.8rem;
       margin-bottom: 16px;
       line-height: 1.3;
     }
-
     .hero p {
       font-size: 1.2rem;
       margin-bottom: 24px;
       color: #ccc;
     }
-
     .hero button {
       background-color: #e60023;
       color: white;
@@ -65,6 +57,17 @@
       font-weight: bold;
       cursor: pointer;
       border-radius: 5px;
+    }
+    .locked-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #e60023;
+    color: white;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: bold;
     }
 
     .auth-card {
@@ -79,14 +82,12 @@
       flex-direction: column;
       align-items: center;
     }
-
     .auth-card h3 {
       margin-bottom: 20px;
       font-family: 'Orbitron', sans-serif;
       color: #e60023;
       font-size: 1.6rem;
     }
-
     .auth-card input {
       width: 85%;
       padding: 12px;
@@ -97,7 +98,6 @@
       background: #fff;
       color: #000;
     }
-
     .auth-card button {
       width: 85%;
       padding: 12px;
@@ -111,20 +111,9 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     .auth-card button:hover {
       background: #ff0033;
     }
-
-    .auth-divider {
-      height: 3px;
-      width: 85%;
-      background: #e60023;
-      margin: 25px 0;
-      border-radius: 3px;
-      border: none;
-    }
-
     .section-title {
       text-align: center;
       font-size: 2rem;
@@ -132,7 +121,6 @@
       font-weight: bold;
       letter-spacing: 0.5px;
     }
-
     .card-row {
       display: flex;
       justify-content: center;
@@ -140,7 +128,6 @@
       gap: 24px;
       padding: 0 20px;
     }
-
     .card {
       flex: 1 1 250px;
       max-width: 300px;
@@ -149,46 +136,58 @@
       font-size: 1.05rem;
       box-shadow: 0 0 12px rgba(255,255,255,0.08);
       text-align: center;
+      position: relative;
     }
-
     .card h3 {
       font-size: 1.5rem;
       margin-bottom: 12px;
     }
-
     .card p {
       font-size: 1.05rem;
       margin: 0;
       line-height: 1.6;
     }
-
     .icon img {
       width: 60px;
       height: 60px;
       margin: 14px 0;
     }
-
-    .arrow {
-      font-size: 2.5rem;
-      display: block;
-      margin: 18px auto 0;
+    .progress-stats {
+      margin-top: 10px;
+      font-size: 0.95rem;
     }
-
+    .progress-bar-container {
+      width: 100%;
+      background: #111;
+      border-radius: 8px;
+      margin-top: 8px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      background: #00ffaa;
+      height: 100%;
+      transition: width 0.4s ease;
+    }
+    .locked-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #555;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
     .red-bg { background-color: #e60023; color: #fff; }
     .blue-bg { background-color: #003366; color: #fff; }
     .white-bg { background-color: #fff; color: #000; }
-
-    .white-bg .arrow { color: #e60023; }
-    .blue-bg .arrow { color: #fff; }
-    .red-bg .arrow { color: #001133; }
-
     footer {
       text-align: center;
       padding: 40px 20px;
       color: #aaa;
       font-size: 0.9rem;
     }
-
     @media screen and (max-width: 768px) {
       .card-row {
         flex-direction: column;
@@ -198,6 +197,11 @@
         font-size: 2.2rem;
       }
     }
+    .level-up-animation {
+  box-shadow: 0 0 20px 6px #00ffaa;
+  transition: box-shadow 0.5s ease-in-out;
+}
+
   </style>
 </head>
 <body>
@@ -212,12 +216,10 @@
       <a href="#">ABOUT</a>
     </nav>
   </header>
-
   <section class="hero">
     <h2>FORGE YOUR FUTURE IN <span style="color:#e60023;">CODE</span>, <span style="color:#003366;">SECURITY</span>, AND <span style="color:#fff;">GAMES</span></h2>
     <p>Master the skills. Build real projects. Level up your knowledge.</p>
     <button>START LEARNING NOW</button>
-
     <div class="auth-card">
       <h3>Login or Sign Up</h3>
       <input type="email" id="login-email" placeholder="Email">
@@ -240,66 +242,63 @@
         <div class="icon">
           <img src="https://cdn-icons-png.flaticon.com/512/711/711284.png" alt="Computer Science Icon" />
         </div>
-        <p>Algorithms<br>OOP & Web Dev<br>Databases</p>
+        <p>Loading...</p>
+        <div class="progress-stats">
+          <span class="level-text">Level: </span><br>
+          <span class="lesson-text">Lessons Completed: </span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: 20%;"></div>
+        </div>
       </div>
       <div class="card red-bg">
         <h3>CYBERSECURITY</h3>
         <div class="icon">
           <img src="https://cdn-icons-png.flaticon.com/512/5964/5964320.png" alt="Cybersecurity Icon" />
         </div>
-        <p>CTFs<br>Hacking Labs<br>Encryption & Ethics</p>
+        <p>Loading...</p>
+        <div class="progress-stats">
+          <span class="level-text">Level: </span><br>
+          <span class="lesson-text">Lessons Completed: </span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: 20%;"></div>
+        </div>
       </div>
       <div class="card red-bg">
         <h3>GAME DEVELOPMENT</h3>
         <div class="icon">
-          <img src="https://www.pngall.com/wp-content/uploads/5/Vector-Game-Controller-Transparent.png" alt="Game Development Icon" />
+          <img src="https://www.pngall.com/wp-content/uploads/5/Vector-Game-Controller-Transparent.png" alt="Game Dev Icon" />
         </div>
-        <p>2D/3D Games<br>Mechanics<br>Animation</p>
+        <p>Loading...</p>
+        <div class="progress-stats">
+          <span class="level-text">Level: </span><br>
+          <span class="lesson-text">Lessons Completed: </span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: 20%;"></div>
+        </div>
       </div>
     </div>
   </section>
 
   <section>
-    <div class="section-title">HANDS-ON LESSONS</div>
+    <div class="section-title">HANDS-ON LEARNING PROJECTS</div>
     <div class="card-row">
       <div class="card blue-bg">
+        <span class="locked-badge">🔒 Locked</span>
         <h3>Build Your Portfolio</h3>
-        <p>Deploy your first webpage</p>
+        <p>🔓 Unlocked after CS Level 1<br><small>Deploy your first webpage with HTML/CSS</small></p>
       </div>
       <div class="card blue-bg">
+        <span class="locked-badge">🔒 Locked</span>
         <h3>Network Attacks 101</h3>
-        <p>Discover real-world exploits</p>
+        <p>🔓 Unlocked after Cyber Level 1<br><small>Explore real-world exploits in a virtual lab</small></p>
       </div>
       <div class="card blue-bg">
+        <span class="locked-badge">🔒 Locked</span>
         <h3>Make a Sprite Jump</h3>
-        <p>Learn basic animation logic</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-title">FORGE QUESTS</div>
-    <div class="card-row">
-      <div class="card white-bg">
-        <h3>Build a Portfolio Site</h3>
-        <div class="icon">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Python_icon_%28black_and_white%29.svg/2048px-Python_icon_%28black_and_white%29.svg.png" alt="Python Icon" />
-        </div>
-        <p>Deploy with Python & Flask</p>
-      </div>
-      <div class="card white-bg">
-        <h3>Crack the Password Vault</h3>
-        <div class="icon">
-          <img src="https://www.freeiconspng.com/uploads/black-hacker-icon-0.png" alt="Hacker Icon" />
-        </div>
-        <p>Practice brute force hacking</p>
-      </div>
-      <div class="card white-bg">
-        <h3>Create a Boss Fight Engine</h3>
-        <div class="icon">
-          <img src="https://cdn-icons-png.flaticon.com/512/103/103874.png" alt="Fist Collison Icon" />
-        </div>
-        <p>Design a turn-based system</p>
+        <p>🔓 Unlocked after Game Dev Level 1<br><small>Implement core animation logic using JavaScript</small></p>
       </div>
     </div>
   </section>
@@ -307,76 +306,190 @@
   <footer>
     <p>&copy; 2025 TechForge Academy. All rights reserved.</p>
   </footer>
-
-  <!-- Firebase Modular SDK Setup -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyA66sbVnP3CNVpdTUz13MuLwemiObpR-QM",
-      authDomain: "techforge-academy.firebaseapp.com",
-      projectId: "techforge-academy",
-      storageBucket: "techforge-academy.appspot.com",
-      messagingSenderId: "724281790220",
-      appId: "1:724281790220:web:866629d3bd073fb5ac329",
-      measurementId: "G-TCQY5VY8M8"
-    };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
+  // Import Firebase SDK
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    window.createAccount = () => {
-      const email = document.getElementById('signup-email').value;
-      const password = document.getElementById('signup-password').value;
-      const username = document.getElementById('signup-username').value;
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyA66sbVnP3CNVpdTUz13MuLwemiObpR-QM",
+    authDomain: "techforge-academy.firebaseapp.com",
+    projectId: "techforge-academy",
+    storageBucket: "techforge-academy.appspot.com",
+    messagingSenderId: "724281790220",
+    appId: "1:724281790220:web:866629d3bd073fb5ac329",
+    measurementId: "G-TCQY5VY8M8"
+  };
 
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          return setDoc(doc(db, "users", user.uid), {
-            email,
-            username
-          });
-        })
-        .then(() => {
-          document.getElementById('user-status').innerText = "Account created!";
-        })
-        .catch((error) => {
-          document.getElementById('user-status').innerText = error.message;
-        });
-    };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    window.loginUser = () => {
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
+async function updateLessonProgress(track) {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const docRef = doc(db, "users", user.uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    let lessons, level, update = {}, selectorIndex;
+
+    if (track === 'cs') {
+      lessons = data.cs_lessons + 1;
+      level = Math.floor(lessons / 5) + 1;
+      update = { cs_lessons: lessons, cs_level: level };
+      selectorIndex = 0;
+    } else if (track === 'cyber') {
+      lessons = data.cyber_lessons + 1;
+      level = Math.floor(lessons / 5) + 1;
+      update = { cyber_lessons: lessons, cyber_level: level };
+      selectorIndex = 1;
+    } else if (track === 'gamedev') {
+      lessons = data.gamedev_lessons + 1;
+      level = Math.floor(lessons / 5) + 1;
+      update = { gamedev_lessons: lessons, gamedev_level: level };
+      selectorIndex = 2;
+    }
+
+    await setDoc(docRef, { ...data, ...update });
+
+    const card = document.querySelectorAll('.card-row .card')[selectorIndex];
+    if (card) {
+      const levelText = card.querySelector('.level-text');
+      const lessonText = card.querySelector('.lesson-text');
+      const progressBar = card.querySelector('.progress-bar');
+
+      levelText.innerText = `Level: ${level}`;
+      lessonText.innerText = `Lessons Completed: ${lessons}`;
+      progressBar.style.width = `${Math.min((lessons / 10) * 100, 100)}%`;
+
+      if (level !== data[`${track}_level`]) {
+        card.classList.add('level-up-animation');
+        setTimeout(() => card.classList.remove('level-up-animation'), 1500);
+      }
+
+      const projectCards = document.querySelectorAll('.card-row:nth-of-type(2) .card');
+      if (level >= 1) {
+        projectCards[selectorIndex].querySelector('.locked-badge').style.display = 'none';
+      }
+    }
+  }
+}
+
+  // Create account
+  window.createAccount = async () => {
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const username = document.getElementById('signup-username').value;
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await setDoc(doc(db, "users", user.uid), {
+        email,
+        username,
+        cs_level: 1,
+        cyber_level: 1,
+        gamedev_level: 1,
+        cs_lessons: 0,
+        cyber_lessons: 0,
+        gamedev_lessons: 0
+      });
+      document.getElementById('user-status').innerText = `Welcome, ${username}! Account created.`;
+    } catch (error) {
+      document.getElementById('user-status').innerText = error.message;
+    }
+  };
+
+  // Login user
+  window.loginUser = async () => {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        const username = docSnap.data().username;
-        document.getElementById('user-status').innerText = `Welcome back, ${username}`;
+        const data = docSnap.data();
+        document.getElementById('user-status').innerText = `Welcome back, ${data.username}`;
       } else {
-        document.getElementById('user-status').innerText = `Welcome back, User`;
+        document.getElementById('user-status').innerText = `Welcome back!`;
       }
-    })
-    .catch((error) => {
+    } catch (error) {
       document.getElementById('user-status').innerText = error.message;
-    });
-};
+    }
+  };
 
+ // Auth state tracking with safe rendering
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    (async () => {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("Logged in as:", user.email);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+
+        // Safe fallback values
+        const csLevel = data.cs_level || 1;
+        const csLessons = data.cs_lessons || 0;
+        const cyberLevel = data.cyber_level || 1;
+        const cyberLessons = data.cyber_lessons || 0;
+        const gamedevLevel = data.gamedev_level || 1;
+        const gamedevLessons = data.gamedev_lessons || 0;
+
+        // Show greeting
+        document.getElementById('user-status').innerText = `Welcome, ${data.username}`;
+
+        // Show progress stats
+        document.querySelector('.card-row .card:nth-child(1) .level-text').innerText = `Level: ${csLevel}`;
+        document.querySelector('.card-row .card:nth-child(1) .lesson-text').innerText = `Lessons Completed: ${csLessons}`;
+        document.querySelector('.card-row .card:nth-child(1) .progress-bar').style.width = `${Math.min((csLessons / 10) * 100, 100)}%`;
+
+        document.querySelector('.card-row .card:nth-child(2) .level-text').innerText = `Level: ${cyberLevel}`;
+        document.querySelector('.card-row .card:nth-child(2) .lesson-text').innerText = `Lessons Completed: ${cyberLessons}`;
+        document.querySelector('.card-row .card:nth-child(2) .progress-bar').style.width = `${Math.min((cyberLessons / 10) * 100, 100)}%`;
+
+        document.querySelector('.card-row .card:nth-child(3) .level-text').innerText = `Level: ${gamedevLevel}`;
+        document.querySelector('.card-row .card:nth-child(3) .lesson-text').innerText = `Lessons Completed: ${gamedevLessons}`;
+        document.querySelector('.card-row .card:nth-child(3) .progress-bar').style.width = `${Math.min((gamedevLessons / 10) * 100, 100)}%`;
+
+        // Unlock project cards
+        const projectCards = document.querySelectorAll('.card-row:nth-of-type(2) .card');
+        if (csLevel >= 1) {
+          projectCards[0].querySelector('.locked-badge').style.display = 'none';
+        }
+        if (cyberLevel >= 1) {
+          projectCards[1].querySelector('.locked-badge').style.display = 'none';
+        }
+        if (gamedevLevel >= 1) {
+          projectCards[2].querySelector('.locked-badge').style.display = 'none';
+        }
+
+        // Show lesson buttons only when logged in
+        document.querySelectorAll('.progress-stats button').forEach(btn => btn.style.display = 'inline-block');
       }
-    });
-  </script>
+    })();
+  } else {
+    console.log("No user signed in");
+    // Hide all lesson buttons when logged out
+    document.querySelectorAll('.progress-stats button').forEach(btn => btn.style.display = 'none');
+  }
+});
+
+
+</script>
 </body>
 </html>
